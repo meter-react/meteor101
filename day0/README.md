@@ -1,8 +1,7 @@
-# 第零周周六
+# 第一课
 
-- 日期：20160116
-- 地点：清华 FIT 一层小会议室
-- 讲师：李明 & 田思源
+- 日期：20160228
+- 讲师：田思源
 
 ## 预备知识
 
@@ -27,9 +26,7 @@
 
 - 首选 MacOS
 - 次选 Linux（Ubuntu 14.04）
-- 三选 Windows + Virtualbox + Ubuntu 14.04 虚拟镜像文件
 
-		现场提供Ubuntu 安装 U盘
 
 ### 安装运行基本步骤
 
@@ -224,6 +221,10 @@ Deploying to maodou-class.meteor.com.
 Now serving at http://maodou-class.meteor.com 
 ```
 
+#### meteor create --list
+
+#### meteor create create --example simple-todos-react
+
 ### 编辑器
 
 ##### Sublime
@@ -234,77 +235,3 @@ Now serving at http://maodou-class.meteor.com
 
 ![](pics/webstorm.png)
 
-## 代码分析：Microscope
-
-### Telescope
-
-![](pics/telescope.png)
-
-### Microscope
-
-我们将构建的应用是一个简化版的社交新闻网站，类似 Hacker News 或 Reddit，称为 Microscope（借鉴 基于 Meteor 的开源应用 Telescope），在课程中，解决构建 Meteor 应用需要的各种要素，例如用户账户、Collection、路由等等，后续会逐步讲到。
-
-![](pics/microscope.png)
-
-
-```
-tsy@localhost:~/Microscope$ tree .
-.
-├── client
-│   ├── helpers
-│   │   ├── config.js
-│   │   ├── errors.js
-│   │   └── handlebars.js
-│   ├── main.html
-│   ├── main.js
-│   ├── stylesheets
-│   │   └── style.css
-│   └── templates
-│       ├── application
-│       │   ├── layout.html
-│       │   ├── layout.js
-│       │   └── not_found.html
-│       ├── comments
-│       │   ├── comment_item.html
-│       │   ├── comment_item.js
-│       │   ├── comment_submit.html
-│       │   └── comment_submit.js
-│       ├── includes
-│       │   ├── access_denied.html
-│       │   ├── errors.html
-│       │   ├── errors.js
-│       │   ├── header.html
-│       │   ├── header.js
-│       │   └── loading.html
-│       ├── notifications
-│       │   ├── notifications.html
-│       │   └── notifications.js
-│       └── posts
-│           ├── post_edit.html
-│           ├── post_edit.js
-│           ├── post_item.html
-│           ├── post_item.js
-│           ├── post_page.html
-│           ├── post_page.js
-│           ├── posts_list.html
-│           ├── posts_list.js
-│           ├── post_submit.html
-│           └── post_submit.js
-├── lib
-│   ├── collections
-│   │   ├── comments.js
-│   │   ├── notifications.js
-│   │   └── posts.js
-│   ├── permissions.js
-│   └── router.js
-├── LICENSE.txt
-├── README.markdown
-├── README.nitrous.md
-└── server
-    ├── fixtures.js
-    └── publications.js
-
-12 directories, 41 files
-tsy@localhost:~/Microscope$ 
-
-```

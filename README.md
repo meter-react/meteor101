@@ -1,19 +1,34 @@
-# Meteor 培训 Meteor 101
+# Meteor 培训 Meteor 101-2
 
-  	 Meteor 初级班教程
+  	 Meteor 初级班第二期
 
 ## 说明
 
-- 基础要求: 基本的HTML5，CSS，JavaScript知识
+- 基础要求
+
+  0. 基本的JavaScript知识
+  1. 基本的HTML5知识
+  2. 基本的CSS知识
 
 - 工作环境平台的选择
 
-  (优先级由高到低；本课程不支持在Windows上直接使用Meteor。)
+  本课程不支持在Windows上直接使用Meteor。
 
   1. Mac
   2. Linux
 
 - 线上直播使用[Moxtra](www.moxtra.com)
+
+## 时间安排（周日，北京时间）
+
+- 第一课：02/28 9:30 - 11:00
+- 第二课：03/06 9:30 - 11:00
+- 第三课：待定
+- 第四课：待定
+- 第五课：待定
+- 第六课：待定
+- 第七课：待定
+- 第八课：待定
 
 ## 讲义
 

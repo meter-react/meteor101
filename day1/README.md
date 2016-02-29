@@ -3,7 +3,6 @@
 ## Meteor基础
 
 - 日期：20160306
-- 地点：线上(Moxtra)
 - 讲师：田思源
 
 ----
@@ -15,17 +14,15 @@ Meteor.js 不同于其他框架的地方。
 
 - 数据在线上（Data on the Wire）
 
-"Don't send HTML over the network. Send data and let the client decide how to render it."
-
-Insensible code that include HTML on JSON output is not a fault of any framework. In fact you can just add handlebars on your Ruby on Rails application and that should sort things out. It's used as a default in Meteor.js.
+"不要提供网络发送 HTML，发送数据并让客户端决定如何去渲染。"
 
 - 单一语言（One Language: JavaScript）
 
-Initially daunting for someone who uses Ruby on Rails and who believes in JavaScript minimalism, but it makes a lot of sense just as writing an app entirely on Ruby or Python makes sense.
+使用单一语言的好处无须赘述。
 
 - 数据库无处不在（Database Everywhere）
 
-"Use the same transparent API to access your database from the client or the server." 
+"使用同样的透明 API 从客户端和服务器访问你的数据库。"
 
 This just means there's one way of getting data from any table. This is how you define a list of items on either the server or client:
 
@@ -35,35 +32,31 @@ Lists = new Meteor.Collection("lists");
 
 - 延迟补偿（Latency Compensation）
 
-"On the client, use prefetching and model simulation to make it look like you have a zero-latency connection to the database."
-
-Prefetching is faster than it is in Rails naturally.
+"在客户端，使用预取和模型仿真，看起来你有一个零延迟的数据库连接。"
 
 - 全栈响应性（Full Stack Reactivity）
 
-"Make realtime the default. All layers, from database to template, should make an event-driven interface available."
-
-This is the behaviour needed by some people I talked to. They don't like to keep on clicking on buttons. The user should just type and see results quickly.
+"使实时成为默认。所有层，从数据库到模板，应该提供事件驱动的接口。"
 
 - 拥抱生态环境（Embrace the Ecosystem）
 
-"Meteor is open source and integrates, rather than replaces, existing open source tools and frameworks."
+"Meteor 是开源的，集成而不是代替了现有的开源工具和框架。"
 
-You can use Node.js libraries for most of the things that Meteor.js lacks.
+对于 Meteor.js 所缺乏的大多数功能，你可以使用 Node.js 库。 
 
 - 简单即效率（Simplicity Equals Productivity）
 
-"The best way to make something seem simple is to have it actually be simple. Accomplish this through clean, classically beautiful APIs."
+“让事情看起来简单的最佳方法就是让它实际简单，通过整洁、古朴典雅的API达到这个目标。”
 
 ### 基本概念
 
-- Isomorphic JavaScript
+- Isomorphic JavaScript(同构的JavaScript)
 
 只写一套代码，但可以跑在服务器端和客户端。
 
 [Isomorphic JavaScript](http://isomorphic.net/javascript) apps are JavaScript applications that can run both client-side and server-side. The backend and frontend share the same code. 
 
-- Template
+- Template(模板)
 
 helpers, events 都是 template 里的东西。
 
@@ -73,39 +66,37 @@ events 显而易见是用来注册 event handler 的。这里的好处是，even
 
 而 template 本身还有一些方法，比如 onCreated, onRendered, onDestroyed, 用来在 template 创建，渲染，销毁时做一些操作。
 
-- Session
+- Session(回话)
 
 Session 里可以存储任意键值对，它们在客户端部分操作，可以理解为客户端部分的数据库，而且不会对服务器造成影响。利用 Session 也可以让 View 自动更新，这里用来实现这个功能的就是 Tracker。
 
-- Tracker
+- Tracker(追踪器)
 
-tracker 的用途是当 Session 里的变量，数据查询或其他数据源发生改变是，自动返回新的 template 或其他函数。这个过程是自动的，看起来有点像 Angular 里的双向绑定，不需要手动控制。我对这里还是有点疑问的，就像 Angular , 如果数据越来越多，需要 track 的数据也会越来越多，那么会不会影响效率呢，比如渲染变慢。
+Tracker 的用途是当 Session 里的变量，数据查询或其他数据源发生改变是，自动返回新的 template 或其他函数。这个过程是自动的，看起来有点像 Angular 里的双向绑定，不需要手动控制。我对这里还是有点疑问的，就像 Angular , 如果数据越来越多，需要 track 的数据也会越来越多，那么会不会影响效率呢，比如渲染变慢。
 
 如果需要更细节的控制，Tracker.autorun() 是用来干这个的，它接受一个回调函数，当它的依赖数据改变后，这个函数就会被再次运行。
 
-- Collections
+- Collections(数据集)
 
 Collection 是用来存储数据的，它模拟了 MongoDB 的 collection. 在创建 Collection 时，如果给了名字的参数，那么这个 Collection 就是 persistent 的，会存储到服务器，并推送给客户端。不然它只是一个 local collection. 不会同步到服务器。Collection 支持的几种方法都跟 MongoDB 支持的方法基本一样，update, insert, remove, find 之类的。
 
-- Methods
+- Methods(方法)
 
 Methods 是定义在服务器端的一些方法，可以在客户端进行调用，使用它的原因是要对数据做一些复杂的操作，比如数据验证。这里因为调用的是服务器端的方法，所以有网络请求，会造成一些延时，这时 Meteor 会做出补偿，即是在客户端就预测服务器端会返回的结果，直接在客户端做出 UI 上的改变，等服务器端返回值后，如果没有不同，则不会变动，如果不同，则再改变 UI。
 
-- Publish and Subscribe
+- Publish and Subscribe(发布和订阅)
 
 通常情况下，可能并不希望服务器端的所有数据都暴露给客户端，因此就需要 Pub/Sub 来解决这个问题，服务器端决定 Pub 什么东西，然后在客户端进行 Sub。
 
-- Environment
+- Environment(环境)
 
 Meteor 有不同的环境，服务器端和客户端，它提供了 isClient, isServer 来判断环境，让不同环境的代码写在不同的地方。这样就很清晰地分离了前后端，然后结合 Collection 在不同环境的统一 API, 让数据的操作和同步变得容易管理。startUp 方法则是让应用在启动时可以执行一些操作。
-
-
 
 ### Meteor 程序结构
 
 - 目录布局
 
-```
+``` sh
 lib/                      # common code like collections and utilities
 lib/methods.js            # Meteor.methods definitions
 lib/constants.js          # constants used in the rest of the code
@@ -131,7 +122,7 @@ mobile-config.js          # define icons and metadata for Android/iOS
 
 - 例子
 
-```
+``` sh
 tsy@localhost:~$ meteor create --example todos
 Created a new Meteor app in 'todos'.          
 
@@ -253,4 +244,113 @@ tsy@localhost:~/todos$ tree .
 tsy@localhost:~/todos$
 ```
 
-### 实操
+### Meteor 原理
+
+#### 服务器和客户端
+
+![](https://i.cloudup.com/J2CMCytr1Q.png)
+
+#### 三种请求
+
+- 静态文件
+- DDP 消息
+- HTTP 请求
+
+#### 两种服务器
+
+- HTTP Server
+- DDP Server
+
+#### MongoDB 和 Meteor
+
+- 轮询 MongoDB 
+- 使用 MongoDB oplog
+
+### DDP 简介
+
+DDP 是 Distributed Data Protocol 的缩写。Meteor 根据 DDP 实现了客户端和服务器端。
+
+#### DDP是什么
+
+是一个基于 JSON 的协议，DDP 可以在任何双向传输上实现。Meteor 的实现是基于 SockJS。
+
+#### DDP用来做什么
+
+它主要来做两件事：
+
+- 处理 RPC（Remote Procedure Calls）
+
+使用 RPC，你可以调用服务端的方法，并得到返回结果。除此之外，DDP 还可以通知调用者 method 中的所有写操作被反映到所有其他连接的客户端。
+
+例如：客户端调用一个服务器端函数 transferMoney
+
+![](https://i.cloudup.com/2fLpc3NA3a.png)
+
+下面是 DDP 消息：
+
+``` sh
+1. {"msg":"method", "method": "transferMoney", "params": ["1000USD", "arunoda", "sacha"], id": "randomId-1"}
+
+2. {"msg": "result", id": "randomId-1": "result": "5000USD"}
+
+3. {"msg": "updated", "methods": ["randomId-1"]}
+```
+
+解释：
+
+1. DDP 客户端(arunoda)调用 method transferMoney ，带有三个参数：1000USD, arunoda 和 sacha；
+2. 转账完成后，DDP服务端(bank)发送一条消息：arunoda的账户余额。余额在result field。如果出错了，会有一个error field；
+3. 然后，DDP 服务器端发送另一条叫做 updated 的消息，带着 method id，通知我：到 sacha 的转账已经成功。有时候，updated 消息会在 result 之前返回。
+
+- 管理数据
+
+这是 DDP 协议的核心部分。客户端可以利用这点来订阅一个实时的数据源，并得到通知。DDP 协议有三种通知：added,changed,removed。DDP 受到 MongoDB 的启发，每一个数据通知 (一个JSON 对象) 都被赋值到一个 collection。
+
+例如：假设数据源叫做 account，用来保存所有交易。在本例中，sacha 连接到自己的 account，获取自己的交易记录。arunoda 转账之后，sacha 会收到一个新的交易。数据流如下：
+
+![](https://i.cloudup.com/36TF0RmTLM.png)
+
+DDP消息如下：
+
+```sh
+1. {"msg": "sub", id: "random-id-2", "name": "account", "params": ["sacha"]}
+2. {"msg": "added", "collection": "transactions", "id": "record-1", "fields": {"amount": "50USD", "from": "tom"}}
+  {"msg": "added", "collection": "transactions", "id": "record-2", "fields": {"amount": "150USD", "from": "chris"}}
+3. {"msg": "ready": "subs": ["random-id-2"]}
+4. {"msg": "added", "collection": "transactions", "id": "record-3", "fields": {"amount": "1000USD", "from": "arunoda"}}
+```
+
+解释：
+
+1. DDP 客户端(sacha)发送一个订阅请求到自己的账户；
+2. 发回已发生交易的通知；
+3. DDP 服务端发送完所有交易之后，会发送一个叫做ready的特殊消息。ready 消息指明订阅的所有初始数据都已经发送完成；
+4. 过了一会儿，arunnoda 转账之后，sacha会收到一条added 消息。
+
+同样的，DDP 服务端也可以发送changed 和removed通知。例如：
+
+``` sh
+//changed
+{"msg": "changed", collection": "transactions", "id": "doc_id", "fields": {"amount": "300USD"}}
+
+//removed
+{"msg": "removed", "collection": "transactions", "id": "doc_id"}
+```
+
+#### 理解和分析DDP
+
+理解和分析 DDP 非常重要，利于你理解Meteor的工作原理。要想看到真实的 DDP 消息，可以安装 [DDP Analyzer](https://github.com/arunoda/meteor-ddp-analyzer)。
+
+![](https://i.cloudup.com/IsUVXUOspa.png)
+
+### 作业
+
+- 结合 Meteor 自带的几个例子，复习讲过的概念，试试相关的命令。
+
+``` sh
+meteor create —list
+
+meteor create —example [例子名]
+``` 
+
+- 每个人在本 repo 里最少提一个issue。

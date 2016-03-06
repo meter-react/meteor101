@@ -66,7 +66,7 @@ events 显而易见是用来注册 event handler 的。这里的好处是，even
 
 而 template 本身还有一些方法，比如 onCreated, onRendered, onDestroyed, 用来在 template 创建，渲染，销毁时做一些操作。
 
-- Session(回话)
+- Session(会话)
 
 Session 里可以存储任意键值对，它们在客户端部分操作，可以理解为客户端部分的数据库，而且不会对服务器造成影响。利用 Session 也可以让 View 自动更新，这里用来实现这个功能的就是 Tracker。
 

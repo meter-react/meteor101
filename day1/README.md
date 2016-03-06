@@ -9,7 +9,6 @@
 
 ### Meteor 7 原则
 
-
 Meteor.js 不同于其他框架的地方。
 
 - 数据在线上（Data on the Wire）
@@ -24,7 +23,7 @@ Meteor.js 不同于其他框架的地方。
 
 "使用同样的透明 API 从客户端和服务器访问你的数据库。"
 
-This just means there's one way of getting data from any table. This is how you define a list of items on either the server or client:
+这意味着，有一种方法可以从任何表获取数据。这就是你在服务器或者客户端定义一个元素的表单：
 
 ```
 Lists = new Meteor.Collection("lists");
@@ -48,13 +47,13 @@ Lists = new Meteor.Collection("lists");
 
 “让事情看起来简单的最佳方法就是让它实际简单，通过整洁、古朴典雅的API达到这个目标。”
 
+
 ### 基本概念
 
 - Isomorphic JavaScript(同构的JavaScript)
 
-只写一套代码，但可以跑在服务器端和客户端。
+[同构的JavaScript](http://isomorphic.net/javascript) app 只需要写一套代码，但可以跑在服务器端和客户端，前端和后端共享同样的代码。
 
-[Isomorphic JavaScript](http://isomorphic.net/javascript) apps are JavaScript applications that can run both client-side and server-side. The backend and frontend share the same code. 
 
 - Template(模板)
 

@@ -56,3 +56,4 @@
 - [How to Run a Meteor.js Application on Heroku in 10 Steps](https://medium.com/@leonardykris/how-to-run-a-meteor-js-application-on-heroku-in-10-steps-7aceb12de234?_hsenc=p2ANqtz-9zWdF7lflWvdJMZuKRO6-VKvdQgsMaEjavF4sz5Xc-JCWFs9sEy1qK1DpQVSv0In0FKGfKj5maZPBtWKGSX70-3IXKnw&_hsmi=27170246#.gm08oz79q)
 - [Bitbucket is the Git solution for professional teams](https://bitbucket.org/)
 - [网盘](https://yunpan.cn/cuC2fi3UwweeN) (提取码：59fd)
+- [Rocket.Chat](https://github.com/RocketChat/Rocket.Chat)

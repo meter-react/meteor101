@@ -1,32 +1,29 @@
 ## React
 
+读完该指南，你将知道：
 
-After reading this guide, you’ll know:
+- React 是什么，以及为什么你要考虑和Meteor 一起使用它。
+- 如何在你的 Meteor 应用中安装 React，以及如何正确使用。
+- 如何与 Meteor 的实时数据层整合React。
+- 在 React/Meteor 应用中如何路由。
 
-- What React is, and why you would consider using it with Meteor.
-- How to install React in your Meteor application, and how to use it correctly.
-- How to integrate React with Meteor’s realtime data layer.
-- How to route in a React/Meteor application.
+### 简介
 
-### Introduction
+React 是一个 JavaScript 库，由 Facebook 的团队开发和发布，用于构建反应式用户界面。React是目前 Meteor 支持的三种渲染库之一；是 Blaze 和 Angular 的替代。
 
-React is a JavaScript library for building reactive user interfaces developed and distributed by the Facebook team. React is one of the three rendering libraries supported by Meteor; it is an alterative to Blaze and Angular.
+React 有一个生机勃勃并且不断增长的生态系统，与不同的框架结合，被广泛应用于生产环境中。
 
-React has a vibrant and growing ecosystem and is used widely in production in a variety of combinations with different frameworks.
+建议阅读 React 文档，特别是 [thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html) 的帖子。
 
-To learn more about using React in general and coming up to speed with the library, you should check out the React documentation, especially the thinking in React post, which explains the React philosophy well.
+#### 安装和使用 React
 
-To get started with React in Meteor, you can follow along the React tutorial. To see an example of a more complete Meteor application built with React, check out the react branch of the Todos exmaple application. Where applicable, code examples in this article will reference that app.
-
-#### Installing and using React
-
-To install React in Meteor 1.3 you should simply add it as an npm dependency:
+在 Meteor 1.3 中安装 React，运行命令：
 
 ``` sh
 npm install --save react react-dom
 ```
 
-This will install react into your project and allow you to access it within your files with import React from 'react'. Most React code is written in JSX, which you can use by default in Meteor if you include the ecmascript package (which is installed in all Meteor apps by default).
+在你的项目中安装 React 并可以使用 import React from 'react'. 大部分 React 代码是用 JSX，项目包括了缺省安装的 ecmascript package 即可使用。
 
 ``` js
 import React from 'react';
@@ -40,7 +37,7 @@ export default class HelloWorld extends React.Component {
 }
 ```
 
-You can render a component heirarchy to the DOM using the react-dom package:
+你可以使用 react-dom package 渲染一个组件层到DOM：
 
 ``` js
 import { Meteor } from 'meteor/meteor';
@@ -52,26 +49,26 @@ Meteor.startup(() => {
 });
 ```
 
-You need to include a <div id="app"></div> in your body’s HTML somewhere of course.
+需要包括一个 <div id="app"></div> 到 body 的 HTML。
 
-Every new Meteor app includes Blaze, Meteor’s default templating system, by default. If you are not planning on using React and Blaze together, you can remove Blaze from your project by running:
+每个新的 Meteor app 缺省包括了 Meteor 的缺省模板系统 Blaze。如果你不打算一起使用 React 和 Blaze，你可以从项目中移除 Blaze：
 
 ``` js
 meteor remove blaze-html-templates
 meteor add static-html
 ```
 
-#### Using 3rd party packages
+#### 使用第三方 packages
 
-If you’d like to use a third party React component that has been published on npm (such as the ones you find on the React Components site), you can simple npm install --save them and import from within your app.
+如果你想使用在 npm 上发布的第三方 React 组件（例如你在 React Components 网站找到的那些），你可以用下面的命令。
 
-For example, to use the excellent Griddle React package, you could run
+例如，使用出色的 Griddle React package，运行
 
 ``` sh
 npm install --save griddle-react
 ```
 
-Then, like with any other npm package, you can import the component in your application:
+随后，在应用中导入组件：
 
 ``` js
 import React from 'react';
@@ -84,9 +81,9 @@ export default class MyGriddler extends React.Component {
 }
 ```
 
-If you are looking to write an Atmosphere package that wraps such a component, you need to take some further steps.
+如果你要写一个包装了这样一个组件的 Atmosphere package，需要更多的步骤。
 
-#### React Components in Blaze
+#### Blaze 中的 React 组件 
 
 If you’d like to use React within a larger app built with Blaze (which is a good strategy if you’d like to incrementally migrate an app from Blaze to React), you can use the react-template-helper component which renders a react component inside a Blaze template. First run meteor add react-template-helper, then use the React helper in your template:
 
@@ -97,7 +94,7 @@ If you’d like to use React within a larger app built with Blaze (which is a go
 </template>
 ```
 
-You will need to pass in the component class with a helper:
+你需要用一个 helper 传入一个组件类：
 
 ``` js
 import { Template } from 'meteor/templating';
@@ -122,7 +119,7 @@ Note that there a few caveats:
 
 - This means a React component also can’t be the only thing in a Blaze template, because it’s impossible to tell where the template will be used.
 
-##### Passing callbacks to a React component
+##### 传回调函数给 React 组件
 
 To pass a callback to a React component that you are including with this helper, simply make a template helper that returns a function, and pass it in as a prop, like so:
 
@@ -150,7 +147,7 @@ To use it in Blaze:
 </template>
 ```
 
-### Blaze Templates in React
+### 在  React 中 使用 Blaze 模板
 
 Just like we can use React components in Blaze templates, we can also use Blaze templates in React components. This is simularly useful for a gradual transition strategy; but more importantly, it allows us to continue to use the multitude of Atmosphere packages built for Blaze in our React projects, as well as core packages like accounts-ui.
 
@@ -169,13 +166,13 @@ const App = () => (
 
 The <Blaze template="itemsList" items={items} /> line is the same as if you had written {{> itemsList items=items}} inside of a Blaze template. For other options and further information, see the package’s project page.
 
-## Using Meteor’s data system
+## 使用 Meteor 的数据系统
 
 React is a front-end rendering library and as such doesn’t concern itself with how data gets into and out of components. On the other hand, Meteor has strong opinions about data! Meteor operates in terms of publications and methods, used to subscribe to and modify the data in your application.
 
 To integrate the two systems, we’ve developed a react-meteor-data package which allows React components to respond to data changes via Meteor’s Tracker reactivity system.
 
-### Using createContainer
+### 使用 createContainer
 
 Once you’ve run meteor add react-meteor-data, you’ll be able to import the createContainer function, which allows you to create a container component which provides data to your presentational components.
 
@@ -233,21 +230,21 @@ Although this ListContainer container is intended to be instantiated by the Reac
 <ListContainer params={{id: '7'}}/>
 ```
 
-#### Preventing re-renders
+#### 防止重新渲染
 
 Sometimes changes in your data can trigger re-computations which you know won’t affect your UI. Although React is in general quite efficient in the face of unnecessary re-renders, if you need to control re-rendering, the above pattern allows you to easily use React’s shouldComponentUpdate on the presentational component to avoid re-renders.
 
-## Routing
+## 路由
 
-There are two main options for routing with Meteor and React. Either way, we recommend consulting our Routing article for some general principles of routing in Meteor before writing your app.
+Meteor and React 有两个主要的路由方法。
 
-kadira:flow-router is a Meteor specific router that can be used both with React and Blaze. It is documented in detail in the Routing article.
+kadira:flow-router 是 Meteor 专用的路由，React 和 Blaze 都可以用。
 
-react-router is a React-specific router very popular in the React community. It can also be used easily with Meteor.
+react-router 是一个 React 专用的路由，在 React 社区非常流行。它也可以很容易地用于 Meteor。
 
 ### Flow Router
 
-Using Flow Router with React is very similar to using it with Blaze. The only difference is that in your route actions, you should use the react-mounter package to mount components with a layout. Once you npm install --save react-mounter, you can do the following:
+在 React 中使用 Flow Router 与在 Blaze 中使用非常类似。唯一的区别是路由动作，你应该使用 react-mounter package 在一个布局中安装组件。运行 npm install --save react-mounter 之后，你可以：
 
 ``` js
 import { FlowRouter } from 'meteor/kadira:flow-router';
@@ -266,11 +263,11 @@ FlowRouter.route('/lists/:_id', {
 });
 ```
 
-Note that react-mounter automatically mounts the layout component on a #react-root node, which you can change by using the withOptions() function.
+注意：react-mounter 自动安装布局组件到一个 #react-root 结点，你可以使用 withOptions() 函数修改。
 
 ### React Router
 
-Using React Router is also straightforward. Once you npm install --save react-router, you can simply export a list of nested routes as you would in any other React Router driven React application:
+使用 React Router 也是直接明了的。运行 npm install --save react-router 后，你可以轻易导出一列嵌套的路由，和在任何 React Router 驱动的 React 应用中一样：
 
 ``` js
 import React from 'react';
@@ -295,7 +292,7 @@ export const renderRoutes = () => (
 );
 ```
 
-With React Router, you’ll also need to explicity render the exported routes in a startup function:
+使用 React Router，你将需要中一个启动函数中明确地渲染导出的路由：
 
 ``` js
 import { Meteor } from 'meteor/meteor';
@@ -307,16 +304,17 @@ Meteor.startup(() => {
 });
 ```
 
-When using React Router in Meteor, you can follow roughly the same principles as when using Flow Router, but you should also consider the idioms outlined in React Router’s own documentation.
+在 Meteor 中使用 React Router 时，你可以大致遵循与使用 Flow Router 一样的原则，但是你也应该考虑在 React Router 自己的文档中列出的风格。
 
-These include some notable differences like:
+一些显著的区别是：
 
-React Router encourages you to couple your URL design and layout hierarchy in the route definition. Flow Router is more flexible, although it can involve much more boilerplate as a result.
-React Router embraces React-specific functionality like the use of context, although you can also explicitly pass your FlowRouter instance around in context if you’d like (in fact this is probably the best thing to do).
+React Router 鼓励你将 URL 设计和布局层次结合中路由定义中。Flow Router 更灵活，尽管它最终包含了更多的样板。
 
-## Meteor and React
+React Router 欢迎特定于 React 的功能，如使用上下文，尽管你也可以显式地将 FlowRouter 实例在上下文中传递。（这可能是最好的做法）。
 
-### Using React in Atmosphere Packages
+## Meteor 和 React
+
+### 在 Atmosphere Packages 中使用 React
 
 If you are writing an Atmosphere package and want to depend on React or an npm package that itself depends on React, you can’t use Npm.depends() and Npm.require(), as this will result in 2 copies of React being installed into the application (and besides Npm.require() only works on the server).
 

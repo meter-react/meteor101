@@ -31,7 +31,7 @@ import React from 'react';
 export default class HelloWorld extends React.Component {
   render() {
     return (
-      <h1>Hello World</h1>
+      <h1>Hello World<\/h1>
     );
   }
 }
@@ -76,7 +76,7 @@ import Griddle from 'griddle-react';
 
 export default class MyGriddler extends React.Component {
   render() {
-    return (<Griddle ..../>);
+    return (<Griddle ....\/>);
   }
 }
 ```
@@ -85,7 +85,11 @@ export default class MyGriddler extends React.Component {
 
 #### Blaze 中的 React 组件 
 
-If you’d like to use React within a larger app built with Blaze (which is a good strategy if you’d like to incrementally migrate an app from Blaze to React), you can use the react-template-helper component which renders a react component inside a Blaze template. First run meteor add react-template-helper, then use the React helper in your template:
+如果你要在一个用 Blaze 构建较大的 app 中使用 React （如果你想逐步将一个 app 从 Blaze 移植到 React，这是一个好主意），你可以使用 react-template-helper 组件，它在一个 Blaze 模板中渲染一个 React 组件。首先运行 meteor add react-template-helper，随后中你的模板中使用 React helper：
+
+``` sh
+meteor add react-template-helper
+```
 
 ``` html
 <template name="userDisplay">
@@ -109,19 +113,19 @@ Template.userDisplay.helpers({
 })
 ```
 
-The component argument is the React component to include, which should be passed in with a helper.
+组件参数是要包含的 React 组件，应该用 helper 传递。
 
-Every other argument is passed as a prop to the component when it is rendered.
+每个其他参数在渲染时被作为属性（prop）传递给组件。
 
-Note that there a few caveats:
+注意下面这些说明：
 
-- React components must be the only thing in the wrapper element. Due to a limitation of React (see facebook/react #1970, #2484), a React component must be rendered as the only child of its parent node, meaning it cannot have any siblings.
+- React 组件必须是包装（wrapper）元素中惟一的。由于 React 的限制（见 facebook/react [#1970](https://github.com/facebook/react/issues/1970), [#2484]())，一个 React 组件必须作为其父节点的唯一子节点被渲染，这意味着它不能有任何兄弟结点。
 
-- This means a React component also can’t be the only thing in a Blaze template, because it’s impossible to tell where the template will be used.
+- 这意味着一个 React 组件也不能是一个 Blaze 模板中的唯一，因为不可能知道模板将在哪里使用。
 
 ##### 传回调函数给 React 组件
 
-To pass a callback to a React component that you are including with this helper, simply make a template helper that returns a function, and pass it in as a prop, like so:
+为了将一个回调函数传给你使用这个 helper包含的 React 组件，只需使一个模板 helper 返回一个函数，并作为属性传入，如下所示：
 
 ``` js
 Template.userDisplay.helpers({
@@ -137,7 +141,7 @@ Template.userDisplay.helpers({
 });
 ```
 
-To use it in Blaze:
+在 Blaze 中使用它：
 
 ``` html
 <template name="userDisplay">
@@ -149,9 +153,9 @@ To use it in Blaze:
 
 ### 在  React 中 使用 Blaze 模板
 
-Just like we can use React components in Blaze templates, we can also use Blaze templates in React components. This is simularly useful for a gradual transition strategy; but more importantly, it allows us to continue to use the multitude of Atmosphere packages built for Blaze in our React projects, as well as core packages like accounts-ui.
+和我们在 Blaze 模板中使用 React 组件一样，我们也能在 React 组件中使用 Blaze 模板。这对逐步转换策略同样有用；更重要的是，它允许我们在项目中继续使用大量为 Blaze 构建的 Atmosphere packages，以及核心 packages，如 accounts-ui。
 
-One easy way to do this is with the gadicc:blaze-react-component package. First run meteor add gadicc:blaze-react-component, then import and use it in your components as follows:
+一种简单的办法是使用 gadicc:blaze-react-component package。首先，运行 meteor add gadicc:blaze-react-component，随后导入并在你的组件中使用如下：
 
 ``` js
 import React from 'react';
@@ -164,19 +168,19 @@ const App = () => (
 );
 ````
 
-The <Blaze template="itemsList" items={items} /> line is the same as if you had written {{> itemsList items=items}} inside of a Blaze template. For other options and further information, see the package’s project page.
+<Blaze template="itemsList" items={items} /> 与在 Blaze 模板中写 {{> itemsList items=items}} 是一样的。对于其他选择和更多信息，参见 package 的项目网页。
 
 ## 使用 Meteor 的数据系统
 
-React is a front-end rendering library and as such doesn’t concern itself with how data gets into and out of components. On the other hand, Meteor has strong opinions about data! Meteor operates in terms of publications and methods, used to subscribe to and modify the data in your application.
+React 是一个前端渲染库，因此，它不关心数据是如何进出组件的。另一方面，Meteor 有强大的数据选项！Meteor 用发布和方法（publications 和 methods）操作， 用于订阅和修改你的应用中的数据。
 
-To integrate the two systems, we’ve developed a react-meteor-data package which allows React components to respond to data changes via Meteor’s Tracker reactivity system.
+为整合这两个系统，我们开发了一个 react-meteor-data package，允许 React 组件通过 Meteor 的 Tracker 反应系统响应数据变化。
 
 ### 使用 createContainer
 
-Once you’ve run meteor add react-meteor-data, you’ll be able to import the createContainer function, which allows you to create a container component which provides data to your presentational components.
+一旦你运行了 meteor add react-meteor-data，就能够导入 createContainer 函数，它允许你创建一个容器组件，用于给你的表示组件提供数据。
 
-Note that “container components” are analogous to the “smart components” and “presentational components” to the “reusable components” in the pattern we document in the UI\/UX article, if you’d like to read more about how this philosophy relates to Meteor.
+注意，如果你愿意阅读更多和 Meteor 相关的哲学，“容器组件” 是 “聪明组件” 的同义语，而 “表示组件” 是 “可重用组件”的同义语，其模式是我们在 UI\/UX 文章中介绍的。
 
 For example, in the Todos example app, we have a ListPage component, which renders list metadata and the tasks in the list. In order to do so, it needs to subscribe to the todos.inList publication, check that subscription’s readiness, then fetch the list of todos from the Todos collection.
 
@@ -222,9 +226,9 @@ export default createContainer(({ params }) => {
 }, ListPage);
 ```
 
-The container component created by createContainer() will reactively rerender the wrapped component in response to any changes to reactive data sources accessed from inside the function provided to it.
+由 createContainer() 创建的容器组件将反应式地重现渲染被包裹的组件，以回应从为其提供的函数访问的数据源的任何变化。
 
-Although this ListContainer container is intended to be instantiated by the React Router (which passes in the props automatically), if we did ever want to create one manually, we would need to pass in the props to the container component (which then get passed into our data function above):
+尽管这个 ListContainer 容器被设计为由 React Router（它自动传入属性）实例化，如果我们想手动创建，需要传入属性到容器组件（随后会被传入上面的数据函数）：
 
 ``` html
 <ListContainer params={{id: '7'}}/>
@@ -232,7 +236,7 @@ Although this ListContainer container is intended to be instantiated by the Reac
 
 #### 防止重新渲染
 
-Sometimes changes in your data can trigger re-computations which you know won’t affect your UI. Although React is in general quite efficient in the face of unnecessary re-renders, if you need to control re-rendering, the above pattern allows you to easily use React’s shouldComponentUpdate on the presentational component to avoid re-renders.
+有时，数据中的变化可能触发重新计算，而你不希望它影响你的UI。尽管一般来说 React 在不必要的重新渲染相当高效，如果你需要控制重新渲染，以上的模式允许你在表示组件上轻松地使用 React 的 shouldComponentUpdate 以避免重新渲染。
 
 ## 路由
 
@@ -316,9 +320,8 @@ React Router 欢迎特定于 React 的功能，如使用上下文，尽管你也
 
 ### 在 Atmosphere Packages 中使用 React
 
-If you are writing an Atmosphere package and want to depend on React or an npm package that itself depends on React, you can’t use Npm.depends() and Npm.require(), as this will result in 2 copies of React being installed into the application (and besides Npm.require() only works on the server).
+如果你在写一个 Atmosphere package，并想要依赖于 React 或是一个本身依赖于 React 的 npm package，你无法使用 Npm.depends() 和 Npm.require()，因为这样将导致两份 React 拷贝被安装到应用中（另外， Npm.require() 只工作中服务器上）。
 
-Instead, you need to ask your users to install the correct npm packages in the application itself. This will ensure that only one copy of React is shipped to the client and there are no version conflicts.
+反之，你需要让你的用户中应用中安装正确的 npm packages。这将确保直邮一个 React 拷贝被发送到客户端而且没有版本冲突。
 
-In order to check that a user has installed the correct versions of npm packages, you can use the tmeasday:check-npm-versions package to check dependency versions at runtime.
-
+为了检查用户安装了正确的 npm packages 版本，你使用 tmeasday:check-npm-versions package 在运行时检查依赖版本。
